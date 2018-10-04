@@ -4,6 +4,17 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class RandTools {
+	public static int [] genLogorithmDistribution(int a,int b){
+		int ans[]=new int[10];
+		if(a==0)
+			a++;
+		double r=Math.pow(b/a,1.0/9);
+		for(int i=0;i<10;i++){
+			ans[i]=(int)(a*Math.pow(r,i));
+		}
+		return ans;
+	}
+
 	private static Random random = new Random();
 
 	private RandTools() {

@@ -7,7 +7,7 @@ import zj.ojd.io.OutputFileMaker;
 
 public abstract class FormatDataMaker {
 	protected int count = 10;
-	protected String path = "D:\\temp\\TZB\\data";
+	protected String path = "\\data";
 
 	protected static Random random = new Random();
 
