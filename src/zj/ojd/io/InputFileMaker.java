@@ -24,13 +24,20 @@ public class InputFileMaker {
             file.mkdirs();
         }
         Vector<String> vectors = new Vector<String>();
-        for (int i = 1; i <= m; i++) {
-            String filename = String.format("%s/test%02d", path, i);
+        for (int i = 0; i < m; i++) {
+            String filename = String.format("%s/test%d", path, i);
+
+            if(new File(filename+".in").exists()){
+                System.err.println(new File(filename)+" existed!");
+                continue;
+            }
+            System.err.println(filename+" will created!!");
             InputFileMaker.make(className, filename);
         }
         String infiles[] = file.list();// 过滤文件列表把已有的.in合并到输出列表中去
         for (String temp : infiles) {
             if (temp.endsWith(".in")) {
+
                 vectors.add(path + "/" + temp.substring(0, temp.length() - 3));
             }
         }
