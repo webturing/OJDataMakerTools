@@ -3,9 +3,11 @@ package zj.ojd.format;
 import zj.ojd.io.InputFileMaker;
 import zj.ojd.io.OutputFileMaker;
 
+import java.io.IOException;
+
 public abstract class FormatDataMaker {
     protected int count = 10;
-    protected String path = "data/";
+    protected String path = "AOJdata/";
 
 
     public abstract void make(String pathname);
