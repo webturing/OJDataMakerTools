@@ -5,15 +5,15 @@ import java.util.Random;
 
 public class RandTools {
 
+    private static Random random = new Random();
+
+    private RandTools() {
+    }
+
     public static void main(String[] args) {
         System.out.println(Arrays.toString(genUniformRandomDistribution(1, 1024, 10)));
         System.out.println(Arrays.toString(genEqualDifferenceDistribution(1, 1024, 10)));
         System.out.println(Arrays.toString(genLogorithmDistribution(1, 1024, 10)));
-    }
-
-    private static Random random = new Random();
-
-    private RandTools() {
     }
 
     /**
@@ -43,10 +43,18 @@ public class RandTools {
      */
     public static int[] genLogorithmDistribution(int a, int b, int size) {
         int ans[] = new int[size];
+        if (size == 1) {
+            ans[0] = a;
+            return ans;
+        }
         a = Math.max(1, a);
         double r = Math.pow(b / a, 1.0 / (size - 1));
         for (int i = 0; i < size - 1; i++) {
-            ans[i] = (int) (a * Math.pow(r, i));
+            ans[i] = Math.max(1, (int) (a * Math.pow(r, i)));
+        }
+        ans[0] = a;
+        for (int i = 1; i < size; i++) {
+            ans[i] = Math.max(ans[i], ans[i - 1] + 1);
         }
         ans[size - 1] = b;
         return ans;
@@ -139,5 +147,15 @@ public class RandTools {
         for (int i = 0; i < ss.length; i++)
             ss[i] = randString(table, lengthLeft, lengthRight);
         return ss;
+    }
+
+    public static String randLetters(int lengthLeft,
+                                     int lengthRight) {
+        return randString("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray(), lengthLeft, lengthRight);
+    }
+
+    public static String randLetterAndNumberStrings(int lengthLeft,
+                                                    int lengthRight) {
+        return randString("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray(), lengthLeft, lengthRight);
     }
 }
