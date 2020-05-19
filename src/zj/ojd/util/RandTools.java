@@ -1,10 +1,12 @@
 package zj.ojd.util;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class RandTools {
-    public static String[] FAKE_NAMES="Barbra Lathrop Kelby Abbey Zayden Aison Rocia Verlene Eri Creda Victoria Tamika Gar Lawrence Diann Lucille Adrianne Leane Hogan Deena Hillary Gard Cater Shelly Nalany Kegan Alem Arleen Anais Kalil Bruno Onesimus Celia Doyle Barnaby Kanga Amanda Paris Kenneth Mate Debby Ethelbert Asher Kaloosh Gazelle Hilliard Normandy Wilhelmine Gaston Xavier Orion Carlton Gideon Aleda Garwood Abbie Phillida Chuck Laverne Thema Darby Kaya Gereldine Flavian Ursala Topaza Conway Vynona Braden Deanna Eleanora Percival Ella Peers Roxy Oshun Ajani Terris Bjorn Aurelie".trim().split("\\s+");
+    public static String[] FAKE_NAMES = "Barbra Lathrop Kelby Abbey Zayden Aison Rocia Verlene Eri Creda Victoria Tamika Gar Lawrence Diann Lucille Adrianne Leane Hogan Deena Hillary Gard Cater Shelly Nalany Kegan Alem Arleen Anais Kalil Bruno Onesimus Celia Doyle Barnaby Kanga Amanda Paris Kenneth Mate Debby Ethelbert Asher Kaloosh Gazelle Hilliard Normandy Wilhelmine Gaston Xavier Orion Carlton Gideon Aleda Garwood Abbie Phillida Chuck Laverne Thema Darby Kaya Gereldine Flavian Ursala Topaza Conway Vynona Braden Deanna Eleanora Percival Ella Peers Roxy Oshun Ajani Terris Bjorn Aurelie".trim().split("\\s+");
 
     private static Random random = new Random();
 
@@ -166,4 +168,25 @@ public class RandTools {
         return data;
     }
 
+    public static String randWord(String[] name) {
+        return name[randInt(0, name.length - 1)];
+    }
+
+    public static String[] randWords(String[] name, int tot) {
+        String[] data = new String[tot];
+        for (int i = 0; i < tot; i++)
+            data[i] = new String(name[randInt(0, name.length - 1)]);
+        return data;
+    }
+
+    public static String[] randUniqueWords(String[] S, int tot) {
+        if (tot > S.length) return S;
+        List<String> L = Arrays.asList(S);
+        Collections.shuffle(L);
+        String[] data = new String[tot];
+        for (int i = 0; i < tot; i++) {
+            data[i] = L.get(i);
+        }
+        return data;
+    }
 }
