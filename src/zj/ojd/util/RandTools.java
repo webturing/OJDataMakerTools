@@ -189,4 +189,10 @@ public class RandTools {
         }
         return data;
     }
+    public static String randName(){
+        return randWord(FAKE_NAMES);
+    }
+    public static String[] randNames(int tot){
+        return randWords(FAKE_NAMES,tot);
+    }
 }
