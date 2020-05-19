@@ -1,5 +1,6 @@
 package zj.ojd.util;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RandTools {
@@ -10,12 +11,6 @@ public class RandTools {
     private RandTools() {
     }
 
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(genUniformRandomDistribution(1, 1024, 10)));
-        System.out.println(Arrays.toString(genEqualDifferenceDistribution(1, 1024, 10)));
-        System.out.println(Arrays.toString(genLogorithmDistribution(1, 1024, 10)));
-        System.out.println(Arrays.toString(genLogorithmDistribution(1, 20, 10)));
-    }
 
     /**
      * [a,b]区间的等差分布
@@ -204,8 +199,49 @@ public class RandTools {
         return res;
     }
 
-    public static Date randDate() {
-        return new Date(randLong());
+    public static Date randDate(String beginDate, String endDate, String df) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(df);
+            Date start = format.parse(beginDate);
+            Date end = format.parse(endDate);
 
+            if (start.getTime() >= end.getTime()) {
+                return null;
+            }
+
+            long date = random(start.getTime(), end.getTime());
+
+            return new Date(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Date randDate(String beginDate, String endDate) {
+        return randDate(beginDate, endDate, new String("yyyy/mm/dd"));
+
+    }
+
+    public static Date randDate() {
+        return randDate("1900/1/1", "2099/1/1");
+    }
+
+    private static long random(long begin, long end) {
+        long rtn = begin + (long) (Math.random() * (end - begin));
+        if (rtn == begin || rtn == end) {
+            return random(begin, end);
+        }
+        return rtn;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(genUniformRandomDistribution(1, 1024, 10)));
+        System.out.println(Arrays.toString(genEqualDifferenceDistribution(1, 1024, 10)));
+        System.out.println(Arrays.toString(genLogorithmDistribution(1, 1024, 10)));
+        System.out.println(Arrays.toString(genLogorithmDistribution(1, 20, 10)));
+        System.out.println(Arrays.asList(randNames(20)));
+        System.out.println(Arrays.asList(randUniqueWords("zero one two three four five six seven eight nine ten".split(" "), 3)));
+        System.out.println(randDate("1970/01/01", "2030/1/1", "yyyy/mm/dd"));
     }
 }
