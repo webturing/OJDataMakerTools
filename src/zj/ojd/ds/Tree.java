@@ -1,4 +1,5 @@
 package zj.ojd.ds;
 
-public class Tree {
+public interface Tree {
+
 }
