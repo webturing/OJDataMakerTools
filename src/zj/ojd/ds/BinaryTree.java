@@ -35,7 +35,6 @@ public class BinaryTree {
                 if (each.left == null) {
                     each.left = newNode;
                     newNode.parent = each;
-
                     break;
                 }
                 if (each.right == null) {
@@ -45,6 +44,29 @@ public class BinaryTree {
                 }
             }
         }
+    }
+
+    boolean remove(Node delNode) {
+        if (delNode.left == null && delNode.right == null) {
+            if (delNode.parent.left == delNode)
+                delNode.parent.left = null;
+            else
+                delNode.parent.right = null;
+            nodes.remove(delNode);
+            return true;
+        }
+        if (delNode.left != null) {
+            remove(delNode.left);
+        }
+        if (delNode.right != null) {
+            remove(delNode.right);
+        }
+        if (delNode.parent.left == delNode)
+            delNode.parent.left = null;
+        else
+            delNode.parent.right = null;
+        nodes.remove(delNode);
+        return true;
     }
 
     public String toString() {
@@ -62,7 +84,9 @@ public class BinaryTree {
 
 
     public static void main(String[] args) {
-        BinaryTree binaryTree = new BinaryTree(100);
+        BinaryTree binaryTree = new BinaryTree(6);
+        System.out.println(binaryTree);
+        binaryTree.remove(binaryTree.root.right.left);
         System.out.println(binaryTree);
 
     }
